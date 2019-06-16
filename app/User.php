@@ -1,6 +1,6 @@
 <?php
 
-namespace Elections;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'cpf', 'email', 'password', 'candidate_id'
     ];
 
     /**

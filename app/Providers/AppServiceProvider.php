@@ -1,6 +1,6 @@
 <?php
 
-namespace Elections\Providers;
+namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
