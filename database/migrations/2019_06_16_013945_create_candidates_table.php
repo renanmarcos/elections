@@ -16,8 +16,8 @@ class CreateCandidatesTable extends Migration
         Schema::create('candidates', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('vote_number');
-            $table->string('email')->unique();
+            $table->string('candidate_number', 4);
+            $table->integer('votes')->default(0);
             $table->timestamps();
         });
     }
