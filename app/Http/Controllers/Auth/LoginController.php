@@ -34,7 +34,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api')->except('logout');
+        $this->middleware('auth')->except('logout');
     }
 
     public function username()
