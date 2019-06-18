@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth:api']],
-    function () {
-        Route::get('/user', function (Request $request) {
-            return $request->user();
-        });
-    }
-);
+Route::post('/token', '\App\Http\Controllers\Api\TokenController@authenticate');
+Route::post('/register', '\App\Http\Controllers\Api\TokenController@register');
+
+Route::middleware(['jwt.verify'])->group(function ($router) {
+    Route::post('/me', '\App\Http\Controllers\Api\TokenController@me');
+});
