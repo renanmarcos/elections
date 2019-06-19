@@ -76,6 +76,8 @@
                             <a href="{{ route('register') }}">Cadastre-se</a>
                         @endif
                     @endauth
+                    <a href="{{ url('/votos') }}">Votos</a>
+                    <a href="{{ url('/candidatos') }}">Candidatos</a>
                 </div>
             @endif
 
