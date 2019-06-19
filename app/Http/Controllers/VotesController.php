@@ -3,11 +3,12 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Candidate;
 use Illuminate\Http\Request;
+use Auth;
+use Illuminate\Support\Facades\Hash;
 
-class VotesController
+class VotesController extends Controller
 {
     public function submit(Request $request){
 

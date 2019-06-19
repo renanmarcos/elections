@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Candidate;
+use Auth;
 
-class CandidateController
+class CandidateController extends Controller
 {
     public function submit(Request $request){
         $this->validate($request, [
