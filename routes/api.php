@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/token', '\App\Http\Controllers\Api\TokenController@authenticate');
-Route::post('/register', '\App\Http\Controllers\Api\TokenController@register');
 
-Route::middleware(['jwt.verify'])->group(function ($router) {
+Route::middleware(['jwt.auth'])->group(function ($router) {
+    Route::post('/register', '\App\Http\Controllers\Api\TokenController@register');
     Route::post('/me', '\App\Http\Controllers\Api\TokenController@me');
 });

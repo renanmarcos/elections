@@ -20,7 +20,7 @@ class TokenController extends Controller
     {
         $credentials = $request->only('document_number', 'password');
 
-        if ($token = JWTAuth::attempt($credentials)) {
+        if ($token = auth()->guard('api')->attempt($credentials)) {
             return $this->respondWithToken($token);
         }
 
@@ -60,11 +60,7 @@ class TokenController extends Controller
      */
     public function me()
     {
-        if (! $user = JWTAuth::parseToken()->authenticate()) {
-            return response()->json(['user_not_found'], 404);
-        }
-
-        return response()->json(compact('user'));
+        return response()->json(auth()->guard('api')->user());
     }
 
     /**
@@ -78,7 +74,7 @@ class TokenController extends Controller
         return response()->json([
             'access_token' => $token,
             'token_type'   => 'bearer',
-            'expires_in'   => auth()->factory()->getTTL() * 60
+            'expires_in'   => auth()->guard('api')->factory()->getTTL() * 60
         ]);
     }
 }
