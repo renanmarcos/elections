@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/candidatos', 'CandidateController@getCandidates');
-Route::post('/candidatos/mandar', 'CandidateController@submit');
-Route::get('/votos', 'VotesController@getCandidates');
-Route::post('/votos/mandar', 'VotesController@submit');
+Route::get('/candidates', 'CandidateController@index');
+Route::post('/candidates', 'CandidateController@store');
+Route::post('/candidates/{candidateNumber}', 'CandidateController@computeVote');
+Route::get('/votes', 'CandidateController@index');
