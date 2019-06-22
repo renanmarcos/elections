@@ -68,16 +68,15 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Página inicial</a>
+                        <a href="{{ url('/votes') }}">Votos</a>
+                        <a href="{{ url('/candidates') }}">Candidatos</a>
                     @else
-                        <a href="{{ route('login') }}">Fazer login</a>
+                        <a href="{{ route('login') }}">Entrar</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Cadastre-se</a>
                         @endif
                     @endauth
-                    <a href="{{ url('/votos') }}">Votos</a>
-                    <a href="{{ url('/candidatos') }}">Candidatos</a>
                 </div>
             @endif
 

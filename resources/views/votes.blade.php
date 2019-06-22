@@ -30,17 +30,36 @@
                         </ul>
                         <br>
                         @endforeach
-                    @endif
-                    @if (Auth::check())
+                </div>
+            </div>
+            <br>
+            <div class ="card">
+                <div class="card-header">Votar</div>
+
+                <div class="card-body">
+                    @if(\Auth::user()->candidate_id == 0)
                         <p>Digite o número do candidato que voce deseja votar:</p>
                         {!! Form::open(['onsubmit' => 'computeVoteUri(this);', 'name' => 'compute-vote-form']) !!}
-                        {{Form::text('candidate-number', '', ['class' => 'form-control', 'placeholder' => 'Digite o número', 'id' => 'candidate-number'])}}
+                        {{Form::text('candidate-number', '', [
+                            'class' => 'form-control',
+                            'placeholder' => 'Digite o número',
+                            'id' => 'candidate-number',
+                            'minlength' => 4,
+                            'maxlength' => 4,
+                            'required'
+                            ])}}
                         <br>
                         {{Form::submit('Computar voto', ['class'=>'btn btn-primary'])}}
                         {!! Form::close() !!}
+                    @else
+                        <p>Você já votou.</p>
                     @endif
+                @else
+                    <p>A votação não está aberta ainda.</p>
+                @endif
                 </div>
             </div>
+
         </div>
     </div>
 </div>

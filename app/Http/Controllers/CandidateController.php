@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Candidate;
+use \Illuminate\Validation\ValidationException;
 
 class CandidateController extends Controller
 {
@@ -16,15 +17,19 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'candidate_number' => 'required'
-        ]);
+        try {
+            $this->validate($request, [
+                'name' => 'required',
+                'candidate_number' => 'required|unique:candidates'
+            ]);
+        } catch(ValidationException $e) {
+            return redirect('candidates')->with(['error' => 'Número do candidato precisa ser único', 'candidates' => Candidate::all()]);
+        };
 
         $data = $request->only('name', 'candidate_number');
         Candidate::create($data);
 
-        return view('candidates')->with(['success', 'Candidato criado com sucesso!', 'candidates' => Candidate::all()]);
+        return redirect('candidates')->with(['success' => 'Candidato criado com sucesso!', 'candidates' => Candidate::all()]);
     }
 
     /**
@@ -41,11 +46,16 @@ class CandidateController extends Controller
             return redirect('votes')->with(['error' => 'Candidato não encontrado.', 'candidates' => $candidates]);
         }
 
+        /** \App\Models\User $user */
+        $user = \Auth::user();
+        $user->candidate_id = $candidate->id;
+        $user->save();
+
         $candidate->update([
             'votes' => ++$candidate->votes
         ]);
 
-        return view('votes')->with(['success' => 'Voto computado com sucesso.', 'candidates' => $candidates]);
+        return redirect('votes')->with(['success' => 'Voto computado com sucesso.', 'candidates' => $candidates]);
     }
 
     /**
