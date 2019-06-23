@@ -26,7 +26,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'api_token'
+        'password', 'api_token', 'created_at', 'updated_at', 'remember_token', 'candidate_id'
     ];
 
     /**
@@ -67,4 +67,13 @@ class User extends Authenticatable implements JWTSubject
         }
     }
 
+    /**
+     * Determines if user can create candidate
+     *
+     * @return true
+     */
+    public function hasPermissions()
+    {
+        return $this->document_number == 0;
+    }
 }

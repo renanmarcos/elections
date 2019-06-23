@@ -5,23 +5,23 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Candidatos</div>
+            @if(count($candidates) > 0)
+                <div class="card">
+                    <div class="card-header">Candidatos</div>
 
-                <div class="card-body">
-                    @if (!empty(session('error')))
-                        <div class="alert alert-danger" role="alert">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                    <div class="card-body">
+                        @if (!empty(session('error')))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
 
-                    @if (!empty(session('success')))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                        @if (!empty(session('success')))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('success') }}
+                            </div>
+                        @endif
 
-                    @if(count($candidates) > 0)
                         @foreach($candidates as $candidate)
                             <ul class="list-group">
                                 <li class="list-group-item">Nome: {{$candidate->name}}</li>
@@ -30,10 +30,10 @@
                             </ul>
                             <br>
                         @endforeach
-                    @endif
+                    </div>
                 </div>
-            </div>
             <br>
+            @endif
             <div class="card">
                 <div class="card-header">Criar um novo candidato</div>
 

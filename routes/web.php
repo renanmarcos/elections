@@ -12,7 +12,27 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $candidates = \App\Models\Candidate::all();
+    if ($candidates->count() == 0) {
+        return view('welcome')->with('renderChart', false);
+    }
+
+    $votes = \Lava::DataTable();
+    $votes->addStringColumn('Nome')->addNumberColumn('Votos');
+
+    foreach ($candidates as $candidate) {
+        $votes->addRow([$candidate->name, $candidate->votes]);
+    }
+
+    \Lava::ColumnChart('Votes', $votes, [
+        'title' => 'Resultado temporário das eleições',
+        'titleTextStyle' => [
+            'color'    => '#eb6b2c',
+            'fontSize' => 14
+        ]
+    ]);
+
+    return view('welcome')->with('renderChart', true);
 });
 
 Auth::routes();

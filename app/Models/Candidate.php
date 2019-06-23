@@ -21,6 +21,6 @@ class Candidate extends Model
      * @var array
      */
     protected $hidden = [
-        'votes'
+        'created_at', 'updated_at'
     ];
 }

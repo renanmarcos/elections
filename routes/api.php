@@ -13,9 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/token', '\App\Http\Controllers\Api\TokenController@authenticate');
+Route::post('/token', '\App\Http\Controllers\Api\UserController@authenticate');
 
 Route::middleware(['jwt.auth'])->group(function ($router) {
-    Route::post('/register', '\App\Http\Controllers\Api\TokenController@register');
-    Route::post('/me', '\App\Http\Controllers\Api\TokenController@me');
+    Route::post('/register', '\App\Http\Controllers\Api\UserController@register');
+    Route::get('/me', '\App\Http\Controllers\Api\UserController@me');
+    Route::get('/users', '\App\Http\Controllers\Api\UserController@index');
+    Route::put('/users/{user}', '\App\Http\Controllers\Api\UserController@update');
+    Route::delete('/users/{user}', '\App\Http\Controllers\Api\UserController@delete');
+    Route::get('/candidates', '\App\Http\Controllers\Api\CandidateController@index');
+    Route::post('/candidates', '\App\Http\Controllers\Api\CandidateController@store');
+    Route::post('/candidates/{candidateNumber}', '\App\Http\Controllers\Api\CandidateController@computeVote');
+    Route::get('/votes', '\App\Http\Controllers\Api\CandidateController@index');
+    Route::put('/candidates/{candidate}', '\App\Http\Controllers\Api\CandidateController@update');
+    Route::delete('/candidates/{candidate}', '\App\Http\Controllers\Api\CandidateController@delete');
 });

@@ -84,6 +84,10 @@
                 <div class="title m-b-md">
                     Sistema de Eleição
                 </div>
+                @if ($renderChart)
+                    <div id="perf_div"></div>
+                    {!! \Lava::render('ColumnChart', 'Votes', 'perf_div') !!}
+                @endif
             </div>
         </div>
     </body>
